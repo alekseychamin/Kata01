@@ -31,7 +31,14 @@ namespace PointOfSaleTerminal
             terminal.Scan("B");
             terminal.Scan("A");
 
-            logger.LogMessage($"Total price for scans: {terminal.ScanTypes} = {terminal.CalculateTotal()}");
+            try
+            {
+                logger.LogMessage($"Total price for scans: {terminal.ScanTypes} = {terminal.CalculateTotal()}");
+            }
+            catch (Exception ex)
+            {
+                logger.LogMessage($"Error ocuried during calculation: {ex.Message}");
+            }
         }
     }
 }

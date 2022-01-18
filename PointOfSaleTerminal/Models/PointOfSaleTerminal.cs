@@ -64,6 +64,8 @@ namespace PointOfSaleTerminal.Models
 
         public void SetPricing(List<IProduct> products)
         {
+            _ = products ?? throw new ArgumentNullException(nameof(products));
+
             foreach (var product in products)
             {
                 Validate(product);
