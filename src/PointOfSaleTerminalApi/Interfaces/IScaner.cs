@@ -4,7 +4,7 @@ namespace PointOfSaleTerminalApi.Interfaces
 {
     public interface IScaner
     {
-        List<string> ScaneCodes { get; }
+        List<string> ScaningCodes { get; }
 
         string ScanedCodes { get; }
 

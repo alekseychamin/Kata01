@@ -20,7 +20,7 @@ namespace PointOfSaleTerminalApi.Models
         
         public double CalculateTotal()
         {
-            return _priceCalculator.CalculateTotal(_scaner.ScaneCodes, _priceSetter.Prices);
+            return _priceCalculator.CalculateTotal(_scaner.ScaningCodes, _priceSetter.Prices);
         }
         
         public void Scan(string productCode)

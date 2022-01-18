@@ -6,7 +6,6 @@ namespace PointOfSaleTerminalApi.Models
 {
     public class PriceSetter : IPriceSetter
     {
-        private readonly Dictionary<string, IVolumePrice> _prices = new();
         private readonly ILog _log;
 
         public PriceSetter(ILog log)
@@ -14,7 +13,7 @@ namespace PointOfSaleTerminalApi.Models
             _log = log;
         }
 
-        public Dictionary<string, IVolumePrice> Prices { get => _prices; }
+        public Dictionary<string, IVolumePrice> Prices { get; } = new();
 
         public void SetPricing(List<IVolumePrice> prices)
         {
@@ -24,9 +23,9 @@ namespace PointOfSaleTerminalApi.Models
             {
                 Validate(price);
 
-                if (!_prices.ContainsKey(price.ProductCode))
+                if (!Prices.ContainsKey(price.ProductCode))
                 {
-                    _prices.Add(price.ProductCode, price);
+                    Prices.Add(price.ProductCode, price);
                 }
                 else
                 {

@@ -5,7 +5,6 @@ namespace PointOfSaleTerminalApi.Models
 {
     public class Scaner : IScaner
     {
-        private readonly List<string> _scaneCodes = new();
         private readonly ILog _log;
 
         public Scaner(ILog log)
@@ -13,9 +12,9 @@ namespace PointOfSaleTerminalApi.Models
             _log = log;
         }
 
-        public List<string> ScaneCodes { get => _scaneCodes; }
+        public List<string> ScaningCodes { get; } = new();
 
-        public string ScanedCodes { get => string.Join("", _scaneCodes); }
+        public string ScanedCodes { get => string.Join("", ScaningCodes); }
 
         public void Scan(string productCode, Dictionary<string, IVolumePrice> prices)
         {
@@ -27,7 +26,7 @@ namespace PointOfSaleTerminalApi.Models
 
             if (prices.ContainsKey(productCode))
             {
-                _scaneCodes.Add(productCode);
+                ScaningCodes.Add(productCode);
             }
             else
             {
