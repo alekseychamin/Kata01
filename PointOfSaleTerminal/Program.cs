@@ -14,7 +14,7 @@ namespace PointOfSaleTerminal
             IProduct productC = new Product("C", new VolumePrice() { PricePerUnit = 1, VolumeDiscount = 6, PriceDiscount = 5 } );
             IProduct productD = new Product("D", new VolumePrice() { PricePerUnit = 0.75 });
 
-            ISaleTerminal terminal = new SaleTerminal(logger);
+            IPointOfSaleTerminal terminal = new Models.PointOfSaleTerminal(logger);
             
             terminal.SetPricing(productA);
             terminal.SetPricing(productB);

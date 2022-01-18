@@ -8,6 +8,6 @@
 
         int? VolumeDiscount { get; set; }
 
-        double Calculate(int totalVolume);
+        double CalculatePrice(int totalVolume);
     }
 }

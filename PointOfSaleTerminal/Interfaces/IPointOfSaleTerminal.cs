@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PointOfSaleTerminal.Interfaces
 {
-    public interface ISaleTerminal
+    public interface IPointOfSaleTerminal
     {
         string ScanTypes { get; }
 

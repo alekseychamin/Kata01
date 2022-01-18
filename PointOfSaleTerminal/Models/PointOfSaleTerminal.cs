@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PointOfSaleTerminal.Models
 {
-    public class SaleTerminal : ISaleTerminal
+    public class PointOfSaleTerminal : IPointOfSaleTerminal
     {
         private readonly Dictionary<string, IProduct> _products = new();
         private readonly List<string> _scanTypes = new();
@@ -15,7 +15,7 @@ namespace PointOfSaleTerminal.Models
 
         public string ScanTypes { get => string.Join("",_scanTypes); }
 
-        public SaleTerminal(ILog log)
+        public PointOfSaleTerminal(ILog log)
         {
             _log = log;
         }
@@ -42,7 +42,7 @@ namespace PointOfSaleTerminal.Models
             }
             else
             {
-                _log.LogMessage($"{nameof(SaleTerminal)}: Can't scan. Such type of product: {typeProduct} is unknown");
+                _log.LogMessage($"{nameof(PointOfSaleTerminal)}: Can't scan. Such type of product: {typeProduct} is unknown");
             }
         }
 
@@ -56,7 +56,7 @@ namespace PointOfSaleTerminal.Models
             }
             else
             {
-                _log.LogMessage($"{nameof(SaleTerminal)}: Can't set price. Such type of product: {product.TypeProduct} is exist");
+                _log.LogMessage($"{nameof(PointOfSaleTerminal)}: Can't set price. Such type of product: {product.TypeProduct} is exist");
             }
         }
 

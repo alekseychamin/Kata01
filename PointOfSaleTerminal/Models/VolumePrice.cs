@@ -15,7 +15,7 @@ namespace PointOfSaleTerminal.Models
 
         public double PricePerUnit { get; set; }
 
-        public double Calculate(int totalVolume)
+        public double CalculatePrice(int totalVolume)
         {
             int volumeTotalDiscount = (VolumeDiscount.HasValue) ? totalVolume / VolumeDiscount.Value : 0;
             int volumeTotalPerUnit = (VolumeDiscount.HasValue) ? totalVolume % VolumeDiscount.Value : totalVolume;

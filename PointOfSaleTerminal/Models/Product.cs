@@ -23,7 +23,7 @@ namespace PointOfSaleTerminal.Models
 
         public double CalculateTotal(int totalVolume)
         {
-            return _volumePrice.Calculate(totalVolume);
+            return _volumePrice.CalculatePrice(totalVolume);
         }
     }
 }
