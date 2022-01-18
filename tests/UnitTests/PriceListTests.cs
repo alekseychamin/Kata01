@@ -8,10 +8,6 @@ namespace UnitTests
 {
     public class PriceListTests
     {
-        //[TestCase(1.25, 3, 3, 3, 3)]
-        //[TestCase(1, 6, 5, 6, 5)]
-        //[TestCase(4.25, null, null, 1, 4.25)]
-        //[TestCase(0.75, null, null, 2, 1.5)]
         [Test, TestCaseSource(nameof(dataSuccessfullCalculatePrice))]
         public void PriceListCalculatePriceSuccessfullTests(IPriceList priceList, int totalVolume, double totalPrice)
         {
