@@ -28,7 +28,23 @@ namespace PointOfSaleTerminal.Models
 
             foreach (var item in scanGroups)
             {
-                result += _products[item.type].CalculateTotal(item.count);
+                try
+                {
+                    checked
+                    {
+                        result += _products[item.type].CalculateTotal(item.count); 
+                    }
+                }
+                catch (DivideByZeroException)
+                {
+                    _log.LogMessage($"{nameof(PointOfSaleTerminal)}: Divide by zero during calculation.");
+                    throw;
+                }
+                catch (OverflowException)
+                {
+                    _log.LogMessage($"{nameof(PointOfSaleTerminal)}: To big price to calculate.");
+                    throw;
+                }
             }
 
             return result;
@@ -46,17 +62,20 @@ namespace PointOfSaleTerminal.Models
             }
         }
 
-        public void SetPricing(IProduct product)
+        public void SetPricing(List<IProduct> products)
         {
-            Validate(product);
+            foreach (var product in products)
+            {
+                Validate(product);
 
-            if (!_products.ContainsKey(product.TypeProduct))
-            {
-                _products.Add(product.TypeProduct, product);
-            }
-            else
-            {
-                _log.LogMessage($"{nameof(PointOfSaleTerminal)}: Can't set price. Such type of product: {product.TypeProduct} is exist");
+                if (!_products.ContainsKey(product.TypeProduct))
+                {
+                    _products.Add(product.TypeProduct, product);
+                }
+                else
+                {
+                    _log.LogMessage($"{nameof(PointOfSaleTerminal)}: Can't set price. Such type of product: {product.TypeProduct} is exist");
+                }
             }
         }
 

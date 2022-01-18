@@ -13,7 +13,7 @@ namespace PointOfSaleTerminal.Interfaces
 
         void Scan(string typeProduct);
 
-        void SetPricing(IProduct product);
+        void SetPricing(List<IProduct> products);
 
         double CalculateTotal();
     }

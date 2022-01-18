@@ -1,6 +1,7 @@
 ﻿using PointOfSaleTerminal.Interfaces;
 using PointOfSaleTerminal.Models;
 using System;
+using System.Collections.Generic;
 
 namespace PointOfSaleTerminal
 {
@@ -9,17 +10,17 @@ namespace PointOfSaleTerminal
         static void Main(string[] args)
         {
             ILog logger = new Logger();
-            IProduct productA = new Product("A", new VolumePrice() { PricePerUnit = 1.25, VolumeDiscount = 3, PriceDiscount = 3 } );
-            IProduct productB = new Product("B", new VolumePrice() { PricePerUnit = 4.25 });
-            IProduct productC = new Product("C", new VolumePrice() { PricePerUnit = 1, VolumeDiscount = 6, PriceDiscount = 5 } );
-            IProduct productD = new Product("D", new VolumePrice() { PricePerUnit = 0.75 });
+            List<IProduct> products = new()
+            {
+                new Product("A", new VolumePrice() { PricePerUnit = 1.25, VolumeDiscount = 3, PriceDiscount = 3 }),
+                new Product("B", new VolumePrice() { PricePerUnit = 4.25 }),
+                new Product("C", new VolumePrice() { PricePerUnit = 1, VolumeDiscount = 6, PriceDiscount = 5 }),
+                new Product("D", new VolumePrice() { PricePerUnit = 0.75 })
+            };
 
             IPointOfSaleTerminal terminal = new Models.PointOfSaleTerminal(logger);
             
-            terminal.SetPricing(productA);
-            terminal.SetPricing(productB);
-            terminal.SetPricing(productC);
-            terminal.SetPricing(productD);
+            terminal.SetPricing(products);
 
             //ABCDABA
             terminal.Scan("A");
