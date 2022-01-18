@@ -10,14 +10,14 @@ namespace UnitTests
     [TestFixture]
     public class PriceListTests
     {
-        private IPriceList _priceSetter;
+        private IPriceList _priceList;
         private Mock<ILog> _logMock;
 
         [SetUp]
         public void Init()
         {
             _logMock = new Mock<ILog>();
-            _priceSetter = new PriceList(_logMock.Object);
+            _priceList = new PriceList(_logMock.Object);
         }
 
         [Test]
@@ -32,10 +32,10 @@ namespace UnitTests
             };
 
             // Act
-            _priceSetter.SetPricing(products);
+            _priceList.SetPricing(products);
 
             // Assert
-            CollectionAssert.AreEqual(products, _priceSetter.Prices.Values);
+            CollectionAssert.AreEqual(products, _priceList.Prices.Values);
         }
 
         [TestCase("A", 0, 1, 1)]
@@ -64,13 +64,13 @@ namespace UnitTests
             };
 
             // Assert
-            Assert.Throws<ArgumentException>(() => _priceSetter.SetPricing(products));
+            Assert.Throws<ArgumentException>(() => _priceList.SetPricing(products));
         }
 
         [Test]
         public void SetPricingThrowsArgumentNulException()
         {
-            Assert.Throws<ArgumentNullException>(() => _priceSetter.SetPricing(null));
+            Assert.Throws<ArgumentNullException>(() => _priceList.SetPricing(null));
         }
     }
 }
