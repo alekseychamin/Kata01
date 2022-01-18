@@ -1,15 +1,15 @@
-﻿using PointOfSaleTerminalApi.Models;
+﻿using System.Collections.Generic;
 
 namespace PointOfSaleTerminalApi.Interfaces
 {
     public interface IPriceList
     {
-        string ProductCode { get; set; }
+        Dictionary<string, IProduct> Prices { get; }
 
-        double PricePerUnit { get; set; }
-
-        Discount Discount { get; set; }
-
-        double CalculatePrice(int totalVolume);
+        /// <summary>
+        /// Set prices from products codes with validations
+        /// </summary>
+        /// <param name="products"></param>
+        void SetPricing(IEnumerable<IProduct> products);
     }
 }

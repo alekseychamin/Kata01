@@ -14,7 +14,7 @@ namespace PointOfSaleTerminalApi.Models
             _log = log;
         }
 
-        public double CalculateTotal(IEnumerable<string> scaningCodes, IReadOnlyDictionary<string, IPriceList> prices)
+        public double CalculateTotal(IEnumerable<string> scaningCodes, IReadOnlyDictionary<string, IProduct> prices)
         {
             double result = 0.0;
 

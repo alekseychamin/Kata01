@@ -16,7 +16,7 @@ namespace PointOfSaleTerminalApi.Models
 
         public string ScanedCodes => string.Join("", ScaningCodes);
 
-        public void Scan(string productCode, IReadOnlyDictionary<string, IPriceList> prices)
+        public void Scan(string productCode, IReadOnlyDictionary<string, IProduct> prices)
         {
             if (prices is null)
             {

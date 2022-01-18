@@ -1,3 +1,4 @@
+﻿using Moq;
 using NUnit.Framework;
 using PointOfSaleTerminalApi.Interfaces;
 using PointOfSaleTerminalApi.Models;
@@ -6,46 +7,70 @@ using System.Collections.Generic;
 
 namespace UnitTests
 {
+    [TestFixture]
     public class PriceListTests
     {
-        [Test, TestCaseSource(nameof(dataSuccessfullCalculatePrice))]
-        public void PriceListCalculatePriceSuccessfullTests(IPriceList priceList, int totalVolume, double totalPrice)
-        {
-            // Arrange
-            IPriceList volumePrice = priceList;
+        private IPriceList _priceSetter;
+        private Mock<ILog> _logMock;
 
-            // Act
-            var result = volumePrice.CalculatePrice(totalVolume);
-            
-            // Assert
-            Assert.AreEqual(totalPrice, result);
+        [SetUp]
+        public void Init()
+        {
+            _logMock = new Mock<ILog>();
+            _priceSetter = new PriceList(_logMock.Object);
         }
 
         [Test]
-        public void PriceListCalculatePriceThrowsDivideByZeroExceptionTests()
+        public void SetPricingSuccessfull()
         {
             // Arrange
-            IPriceList volumePrice = new PriceList() 
-            { 
-                ProductCode = "A", 
-                PricePerUnit = 1.25, 
-                Discount = new() { Price = 3, Volume = 0 }
+            List<IProduct> products = new()
+            {
+                new Product() { ProductCode = "A", PricePerUnit = 1.25, Discount = new() { Volume = 2, Price = 2.22 } },
+                new Product() { ProductCode = "B", PricePerUnit = 2.25},
+                new Product() { ProductCode = "C", PricePerUnit = 3.25 }
+            };
+
+            // Act
+            _priceSetter.SetPricing(products);
+
+            // Assert
+            CollectionAssert.AreEqual(products, _priceSetter.Prices.Values);
+        }
+
+        [TestCase("A", 0, 1, 1)]
+        [TestCase("A", 1, 0, 1)]
+        [TestCase("A", 1, 1, 0)]
+        [TestCase("A", -1, 1, 1)]
+        [TestCase("A", 1, -1, 1)]
+        [TestCase("A", 1, 1, -1)]
+        [TestCase("", 1, 1, 1)]
+        [TestCase(null, 1, 1, 1)]
+        public void SetPricingThrowsArgumentException(string productCode, double pricePerUnit, int volumeDiscount, double priceDiscount)
+        {
+            // Arrange
+            List<IProduct> products = new()
+            {
+                new Product()
+                {
+                    ProductCode = productCode,
+                    PricePerUnit = pricePerUnit,
+                    Discount = new()
+                    {
+                        Volume = volumeDiscount,
+                        Price = priceDiscount
+                    }
+                }
             };
 
             // Assert
-            Assert.Throws<DivideByZeroException>(() => volumePrice.CalculatePrice(0));
+            Assert.Throws<ArgumentException>(() => _priceSetter.SetPricing(products));
         }
 
-        private static object[] dataSuccessfullCalculatePrice = 
+        [Test]
+        public void SetPricingThrowsArgumentNulException()
         {
-            new object[]
-            {
-                new PriceList() { ProductCode = "A", PricePerUnit = 1.25, Discount = new() { Price = 3, Volume = 3 } }, 3, 3
-            },
-            new object[]
-            {
-                new PriceList() { ProductCode = "B", PricePerUnit = 4.25, Discount = null }, 1, 4.25
-            }
-        };
+            Assert.Throws<ArgumentNullException>(() => _priceSetter.SetPricing(null));
+        }
     }
 }

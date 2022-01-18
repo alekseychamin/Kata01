@@ -1,21 +1,62 @@
 ﻿using PointOfSaleTerminalApi.Interfaces;
+using System;
+using System.Collections.Generic;
 
 namespace PointOfSaleTerminalApi.Models
 {
     public class PriceList : IPriceList
     {
-        public string ProductCode { get; set; }
+        private readonly ILog _log;
 
-        public double PricePerUnit { get; set; }
-
-        public Discount Discount { get; set; }
-
-        public double CalculatePrice(int totalVolume)
+        public PriceList(ILog log)
         {
-            int volumeTotalDiscount = (Discount != null) ? totalVolume / Discount.Volume : 0;
-            int volumeTotalPerUnit = (Discount != null) ? totalVolume % Discount.Volume : totalVolume;
+            _log = log;
+        }
 
-            return ((Discount != null) ? volumeTotalDiscount * Discount.Price : 0.0) + volumeTotalPerUnit * PricePerUnit;
+        public Dictionary<string, IProduct> Prices { get; } = new();
+
+        public void SetPricing(IEnumerable<IProduct> products)
+        {
+            _ = products ?? throw new ArgumentNullException(nameof(products));
+
+            foreach (var product in products)
+            {
+                Validate(product);
+
+                if (!Prices.ContainsKey(product.ProductCode))
+                {
+                    Prices.Add(product.ProductCode, product);
+                }
+                else
+                {
+                    _log.LogMessage($"{nameof(PriceList)}: Unable to set price: product code {product.ProductCode} already exists");
+                }
+            }
+        }
+
+        private void Validate(IProduct price)
+        {
+            _ = price ?? throw new ArgumentNullException(nameof(price));
+
+            if (string.IsNullOrEmpty(price.ProductCode))
+            {
+                throw new ArgumentException(nameof(price.ProductCode));
+            }
+            
+            if (price.PricePerUnit <= 0)
+            {
+                throw new ArgumentException(nameof(price.PricePerUnit));
+            }
+
+            if (price.Discount?.Price <= 0)
+            {
+                throw new ArgumentException(nameof(price.Discount.Price));
+            }
+
+            if (price.Discount?.Volume <= 0)
+            {
+                throw new ArgumentException(nameof(price.Discount.Volume));
+            }
         }
     }
 }

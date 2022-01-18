@@ -6,12 +6,12 @@ namespace PointOfSaleTerminalApi.Models
     public class PointOfSaleTerminal : IPointOfSaleTerminal
     {
         private readonly IScaner _scaner;
-        private readonly IPriceSetter _priceSetter;
+        private readonly IPriceList _priceSetter;
         private readonly IPriceCalculator _priceCalculator;
 
         public string ScanedCodes { get => _scaner.ScanedCodes; }
 
-        public PointOfSaleTerminal(IScaner scaner, IPriceSetter priceSetter, IPriceCalculator priceCalculator)
+        public PointOfSaleTerminal(IScaner scaner, IPriceList priceSetter, IPriceCalculator priceCalculator)
         {
             _priceSetter = priceSetter;
             _scaner = scaner;
@@ -28,7 +28,7 @@ namespace PointOfSaleTerminalApi.Models
             _scaner.Scan(productCode, _priceSetter.Prices);
         }
         
-        public void SetPricing(IEnumerable<IPriceList> prices)
+        public void SetPricing(IEnumerable<IProduct> prices)
         {
             _priceSetter.SetPricing(prices);
         }

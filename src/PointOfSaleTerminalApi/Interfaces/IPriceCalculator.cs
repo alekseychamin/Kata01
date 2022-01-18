@@ -10,6 +10,6 @@ namespace PointOfSaleTerminalApi.Interfaces
         /// <param name="scaningCodes"></param>
         /// <param name="prices"></param>
         /// <returns></returns>
-        double CalculateTotal(IEnumerable<string> scaningCodes, IReadOnlyDictionary<string, IPriceList> prices);
+        double CalculateTotal(IEnumerable<string> scaningCodes, IReadOnlyDictionary<string, IProduct> prices);
     }
 }
