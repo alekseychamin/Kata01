@@ -24,11 +24,11 @@ namespace UnitTests
         public void SetPricingSuccessfull()
         {
             // Arrange
-            List<IVolumePrice> prices = new()
+            List<IPriceList> prices = new()
             {
-                new VolumePrice() { ProductCode = "A", PricePerUnit = 1.25, VolumeDiscount = 2, PriceDiscount = 2.22 },
-                new VolumePrice() { ProductCode = "B", PricePerUnit = 2.25},
-                new VolumePrice() { ProductCode = "C", PricePerUnit = 3.25 }
+                new PriceList() { ProductCode = "A", PricePerUnit = 1.25, Discount = new Discount() { Volume = 2, Price = 2.22 } },
+                new PriceList() { ProductCode = "B", PricePerUnit = 2.25},
+                new PriceList() { ProductCode = "C", PricePerUnit = 3.25 }
             };
 
             // Act
@@ -38,23 +38,26 @@ namespace UnitTests
             CollectionAssert.AreEqual(prices, _priceSetter.Prices.Values);
         }
 
-        [TestCase(0, null, null)]
-        [TestCase(-1, null, null)]
-        [TestCase(1, 0, null)]
-        [TestCase(1, -1, null)]
+        [TestCase(0, 1, 1)]
+        [TestCase(1, 0, 1)]
         [TestCase(1, 1, 0)]
+        [TestCase(-1, 1, 1)]
+        [TestCase(1, -1, 1)]
         [TestCase(1, 1, -1)]
-        public void SetPricingThrowsArgumentException(double pricePerUnit, int? volumeDiscount, double? priceDiscount)
+        public void SetPricingThrowsArgumentException(double pricePerUnit, int volumeDiscount, double priceDiscount)
         {
             // Arrange
-            List<IVolumePrice> prices = new()
+            List<IPriceList> prices = new()
             {
-                new VolumePrice() 
-                { 
-                    ProductCode = "A", 
-                    PricePerUnit = pricePerUnit, 
-                    VolumeDiscount = volumeDiscount, 
-                    PriceDiscount = priceDiscount 
+                new PriceList()
+                {
+                    ProductCode = "A",
+                    PricePerUnit = pricePerUnit,
+                    Discount = new Discount()
+                    {
+                        Volume = volumeDiscount,
+                        Price = priceDiscount
+                    }
                 }
             };
 

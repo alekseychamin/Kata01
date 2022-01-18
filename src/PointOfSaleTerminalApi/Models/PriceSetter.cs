@@ -13,9 +13,9 @@ namespace PointOfSaleTerminalApi.Models
             _log = log;
         }
 
-        public Dictionary<string, IVolumePrice> Prices { get; } = new();
+        public Dictionary<string, IPriceList> Prices { get; } = new();
 
-        public void SetPricing(List<IVolumePrice> prices)
+        public void SetPricing(IEnumerable<IPriceList> prices)
         {
             _ = prices ?? throw new ArgumentNullException(nameof(prices));
 
@@ -29,28 +29,33 @@ namespace PointOfSaleTerminalApi.Models
                 }
                 else
                 {
-                    _log.LogMessage($"{nameof(PriceSetter)}: Can't set price. Such code of product: {price.ProductCode} is exist");
+                    _log.LogMessage($"{nameof(PriceSetter)}: Unable to set price: product code {price.ProductCode} already exists");
                 }
             }
         }
 
-        private void Validate(IVolumePrice price)
+        private void Validate(IPriceList price)
         {
             _ = price ?? throw new ArgumentNullException(nameof(price));
 
-            if (!CheckRange.IsValid(price.PricePerUnit))
+            if (string.IsNullOrEmpty(price.ProductCode))
+            {
+                throw new ArgumentException(nameof(price.ProductCode));
+            }
+            
+            if (price.PricePerUnit <= 0)
             {
                 throw new ArgumentException(nameof(price.PricePerUnit));
             }
 
-            if (!CheckRange.IsValid(price.PriceDiscount))
+            if (price.Discount?.Price <= 0)
             {
-                throw new ArgumentException(nameof(price.PriceDiscount));
+                throw new ArgumentException(nameof(price.Discount.Price));
             }
 
-            if (!CheckRange.IsValid(price.VolumeDiscount))
+            if (price.Discount?.Volume <= 0)
             {
-                throw new ArgumentException(nameof(price.VolumeDiscount));
+                throw new ArgumentException(nameof(price.Discount.Volume));
             }
         }
     }

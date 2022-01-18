@@ -27,12 +27,12 @@ namespace UnitTests
         public void CalculateTotalSuccessfullTests(string scanedCodes, double totalPrice)
         {
             // Arrange
-            Dictionary<string, IVolumePrice> prices = new()
+            Dictionary<string, IPriceList> prices = new()
             {
-                { "A", new VolumePrice() { ProductCode = "A", PricePerUnit = 1.25, VolumeDiscount = 3, PriceDiscount = 3 } },
-                { "B", new VolumePrice() { ProductCode = "B", PricePerUnit = 4.25 } },
-                { "C", new VolumePrice() { ProductCode = "C", PricePerUnit = 1, VolumeDiscount = 6, PriceDiscount = 5 } },
-                { "D", new VolumePrice() { ProductCode = "D", PricePerUnit = 0.75 } }
+                { "A", new PriceList() { ProductCode = "A", PricePerUnit = 1.25, Discount = new Discount() { Volume = 3, Price = 3 } } },
+                { "B", new PriceList() { ProductCode = "B", PricePerUnit = 4.25 } },
+                { "C", new PriceList() { ProductCode = "C", PricePerUnit = 1, Discount = new Discount() { Volume = 6, Price = 5 } } },
+                { "D", new PriceList() { ProductCode = "D", PricePerUnit = 0.75 } }
             };
 
             // Act
@@ -47,9 +47,9 @@ namespace UnitTests
         public void CalculateTotalThrowsDivideByZeroExceptionTests(string scanedCodes)
         {
             // Arrange
-            Dictionary<string, IVolumePrice> prices = new()
+            Dictionary<string, IPriceList> prices = new()
             {
-                { "A", new VolumePrice() { ProductCode = "A", PricePerUnit = 1.25, VolumeDiscount = 0, PriceDiscount = 3 } }
+                { "A", new PriceList() { ProductCode = "A", PricePerUnit = 1.25, Discount = new Discount() { Volume = 0, Price = 3 } } }
             };
 
             // Act

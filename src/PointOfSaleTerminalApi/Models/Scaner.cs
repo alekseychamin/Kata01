@@ -14,13 +14,13 @@ namespace PointOfSaleTerminalApi.Models
 
         public List<string> ScaningCodes { get; } = new();
 
-        public string ScanedCodes { get => string.Join("", ScaningCodes); }
+        public string ScanedCodes => string.Join("", ScaningCodes);
 
-        public void Scan(string productCode, Dictionary<string, IVolumePrice> prices)
+        public void Scan(string productCode, Dictionary<string, IPriceList> prices)
         {
             if (prices is null)
             {
-                _log.LogMessage($"{nameof(Scaner)}: Can't scan. There are no product code list loaded");
+                _log.LogMessage($"{nameof(Scaner)}: Unable to scan: no product code list loaded");
                 return;
             }
 
@@ -30,7 +30,7 @@ namespace PointOfSaleTerminalApi.Models
             }
             else
             {
-                _log.LogMessage($"{nameof(Scaner)}: Can't scan. Such type of product: {productCode} is unknown");
+                _log.LogMessage($"{nameof(Scaner)}: Unable to scan: unknown product type: {productCode}");
             }
         }
     }

@@ -28,7 +28,7 @@ namespace PointOfSaleTerminalApi.Models
             _scaner.Scan(productCode, _priceSetter.Prices);
         }
         
-        public void SetPricing(List<IVolumePrice> prices)
+        public void SetPricing(IEnumerable<IPriceList> prices)
         {
             _priceSetter.SetPricing(prices);
         }

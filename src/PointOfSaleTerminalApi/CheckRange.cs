@@ -8,20 +8,11 @@ namespace PointOfSaleTerminalApi
 {
     public static class CheckRange
     {
-        public static bool IsValid(int? value)
+        public static bool IsValid<T>(T value) where T : struct, IComparable<T>
         {
-            return value.HasValue && value > 0 || !value.HasValue;
+            return (value.CompareTo(default(T)) > 0);
         }
 
-        public static bool IsValid(double? value)
-        {
-            
-            return value.HasValue && value > 0 || !value.HasValue;
-        }
-
-        public static bool IsValid(double value)
-        {
-            return value > 0;
-        }
+        public static void 
     }
 }
