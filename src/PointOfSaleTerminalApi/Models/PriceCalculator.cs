@@ -14,11 +14,13 @@ namespace PointOfSaleTerminalApi.Models
             _log = log;
         }
 
-        public double CalculateTotal(List<string> scaneCodes, Dictionary<string, IVolumePrice> prices)
+        public double CalculateTotal(IEnumerable<string> scaningCodes, IReadOnlyDictionary<string, IProduct> prices)
         {
             double result = 0.0;
 
-            var scanGroups = scaneCodes.GroupBy(x => x).Select(x => new { code = x.Key, count = x.Count() }).ToList();
+            var scanGroups = scaningCodes
+                .GroupBy(x => x)
+                .Select(x => new { code = x.Key, count = x.Count() });
 
             foreach (var item in scanGroups)
             {

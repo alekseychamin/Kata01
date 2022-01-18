@@ -13,6 +13,6 @@ namespace PointOfSaleTerminalApi.Interfaces
         /// </summary>
         /// <param name="productCode"></param>
         /// <param name="prices"></param>
-        void Scan(string productCode, Dictionary<string, IVolumePrice> prices);
+        void Scan(string productCode, IReadOnlyDictionary<string, IProduct> prices);
     }
 }

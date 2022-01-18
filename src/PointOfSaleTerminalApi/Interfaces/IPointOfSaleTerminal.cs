@@ -16,7 +16,7 @@ namespace PointOfSaleTerminalApi.Interfaces
         /// Set the pricing regarding to the product codes
         /// </summary>
         /// <param name="prices"></param>
-        void SetPricing(List<IVolumePrice> prices);
+        void SetPricing(IEnumerable<IProduct> prices);
 
         /// <summary>
         /// Calculate total price of the scaned product codes

@@ -23,7 +23,7 @@ namespace UnitTests
         public void ScanSuccessfullTests()
         {
             // Arrange
-            Dictionary<string, IVolumePrice> prices = new()
+            Dictionary<string, IProduct> prices = new()
             {
                 { "A", null },
                 { "B", null },
@@ -43,7 +43,7 @@ namespace UnitTests
         public void ScanUnSuccessfullNotContainsKeyInPricesTests()
         {
             // Arrange
-            Dictionary<string, IVolumePrice> prices = new()
+            Dictionary<string, IProduct> prices = new()
             {
                 { "A", null },
                 { "B", null },
@@ -62,7 +62,7 @@ namespace UnitTests
         public void ScanUnSuccessfullPricesEqualsNullTests()
         {
             // Arrange
-            Dictionary<string, IVolumePrice> prices = null;
+            Dictionary<string, IProduct> prices = null;
 
             // Act
             _scaner.Scan("A", prices);
