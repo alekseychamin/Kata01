@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PointOfSaleTerminalApi.Models
 {
@@ -30,7 +28,7 @@ namespace PointOfSaleTerminalApi.Models
                 }
                 catch (DivideByZeroException)
                 {
-                    _log.LogMessage($"{nameof(PointOfSaleTerminal)}: Divide by zero during calculation.");
+                    _log.LogMessage($"{nameof(PriceCalculator)}: Divide by zero during calculation.");
                     throw;
                 }
             }

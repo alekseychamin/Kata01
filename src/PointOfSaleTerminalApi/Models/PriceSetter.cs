@@ -1,9 +1,6 @@
 ﻿using PointOfSaleTerminalApi.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PointOfSaleTerminalApi.Models
 {
@@ -33,7 +30,7 @@ namespace PointOfSaleTerminalApi.Models
                 }
                 else
                 {
-                    _log.LogMessage($"{nameof(PointOfSaleTerminal)}: Can't set price. Such code of product: {price.ProductCode} is exist");
+                    _log.LogMessage($"{nameof(PriceSetter)}: Can't set price. Such code of product: {price.ProductCode} is exist");
                 }
             }
         }
