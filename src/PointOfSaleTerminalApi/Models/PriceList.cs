@@ -8,7 +8,7 @@ namespace PointOfSaleTerminalApi.Models
 
         public double PricePerUnit { get; set; }
 
-        public IDiscount Discount { get; set; }
+        public Discount Discount { get; set; }
 
         public double CalculatePrice(int totalVolume)
         {

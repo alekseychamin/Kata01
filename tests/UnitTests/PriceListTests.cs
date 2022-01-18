@@ -33,7 +33,7 @@ namespace UnitTests
             { 
                 ProductCode = "A", 
                 PricePerUnit = 1.25, 
-                Discount = new Discount() { Price = 3, Volume = 0 }
+                Discount = new() { Price = 3, Volume = 0 }
             };
 
             // Assert
@@ -44,7 +44,7 @@ namespace UnitTests
         {
             new object[]
             {
-                new PriceList() { ProductCode = "A", PricePerUnit = 1.25, Discount = new Discount() { Price = 3, Volume = 3 } }, 3, 3
+                new PriceList() { ProductCode = "A", PricePerUnit = 1.25, Discount = new() { Price = 3, Volume = 3 } }, 3, 3
             },
             new object[]
             {

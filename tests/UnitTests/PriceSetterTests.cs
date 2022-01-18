@@ -26,7 +26,7 @@ namespace UnitTests
             // Arrange
             List<IPriceList> prices = new()
             {
-                new PriceList() { ProductCode = "A", PricePerUnit = 1.25, Discount = new Discount() { Volume = 2, Price = 2.22 } },
+                new PriceList() { ProductCode = "A", PricePerUnit = 1.25, Discount = new() { Volume = 2, Price = 2.22 } },
                 new PriceList() { ProductCode = "B", PricePerUnit = 2.25},
                 new PriceList() { ProductCode = "C", PricePerUnit = 3.25 }
             };
@@ -53,7 +53,7 @@ namespace UnitTests
                 {
                     ProductCode = "A",
                     PricePerUnit = pricePerUnit,
-                    Discount = new Discount()
+                    Discount = new()
                     {
                         Volume = volumeDiscount,
                         Price = priceDiscount

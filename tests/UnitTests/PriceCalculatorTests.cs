@@ -49,7 +49,7 @@ namespace UnitTests
             // Arrange
             Dictionary<string, IPriceList> prices = new()
             {
-                { "A", new PriceList() { ProductCode = "A", PricePerUnit = 1.25, Discount = new Discount() { Volume = 0, Price = 3 } } }
+                { "A", new PriceList() { ProductCode = "A", PricePerUnit = 1.25, Discount = new() { Volume = 0, Price = 3 } } }
             };
 
             // Act

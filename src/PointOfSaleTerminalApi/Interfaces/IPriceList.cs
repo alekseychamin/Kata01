@@ -1,4 +1,6 @@
-﻿namespace PointOfSaleTerminalApi.Interfaces
+﻿using PointOfSaleTerminalApi.Models;
+
+namespace PointOfSaleTerminalApi.Interfaces
 {
     public interface IPriceList
     {
@@ -6,7 +8,7 @@
 
         double PricePerUnit { get; set; }
 
-        IDiscount Discount { get; set; }
+        Discount Discount { get; set; }
 
         double CalculatePrice(int totalVolume);
     }
