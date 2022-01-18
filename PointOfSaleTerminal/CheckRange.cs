@@ -10,12 +10,13 @@ namespace PointOfSaleTerminalApi
     {
         public static bool IsValid(int? value)
         {
-            return value.HasValue && value > 0;
+            return value.HasValue && value > 0 || !value.HasValue;
         }
 
         public static bool IsValid(double? value)
         {
-            return value.HasValue && value > 0;
+            
+            return value.HasValue && value > 0 || !value.HasValue;
         }
 
         public static bool IsValid(double value)

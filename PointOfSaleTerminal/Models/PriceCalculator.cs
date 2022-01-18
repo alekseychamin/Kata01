@@ -26,19 +26,11 @@ namespace PointOfSaleTerminalApi.Models
             {
                 try
                 {
-                    checked
-                    {
-                        result += prices[item.code].CalculatePrice(item.count);
-                    }
+                    result += prices[item.code].CalculatePrice(item.count);
                 }
                 catch (DivideByZeroException)
                 {
                     _log.LogMessage($"{nameof(PointOfSaleTerminal)}: Divide by zero during calculation.");
-                    throw;
-                }
-                catch (OverflowException)
-                {
-                    _log.LogMessage($"{nameof(PointOfSaleTerminal)}: To big price to calculate.");
                     throw;
                 }
             }

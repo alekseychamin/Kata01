@@ -21,17 +21,17 @@ namespace PointOfSaleTerminalApi.Models
             _scaner = scaner;
             _priceCalculator = priceCalculator;
         }
-
+        
         public double CalculateTotal()
         {
             return _priceCalculator.CalculateTotal(_scaner.ScaneCodes, _priceSetter.Prices);
         }
-
+        
         public void Scan(string productCode)
         {
             _scaner.Scan(productCode, _priceSetter.Prices);
         }
-
+        
         public void SetPricing(List<IVolumePrice> prices)
         {
             _priceSetter.SetPricing(prices);

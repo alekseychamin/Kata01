@@ -12,6 +12,11 @@ namespace PointOfSaleTerminalApi.Interfaces
 
         string ScanedCodes { get; }
 
+        /// <summary>
+        /// Scan code of the product with validations
+        /// </summary>
+        /// <param name="productCode"></param>
+        /// <param name="prices"></param>
         void Scan(string productCode, Dictionary<string, IVolumePrice> prices);
     }
 }
