@@ -1,14 +1,16 @@
-﻿using PointOfSaleTerminal.Interfaces;
+﻿using PointOfSaleTerminalApi.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PointOfSaleTerminal.Models
+namespace PointOfSaleTerminalApi.Models
 {
     public class VolumePrice : IVolumePrice
     {
+        public string ProductCode { get; set; }
+
         public int? VolumeDiscount { get; set; }
 
         public double? PriceDiscount { get; set; }

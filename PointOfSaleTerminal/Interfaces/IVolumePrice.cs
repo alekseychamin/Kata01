@@ -1,7 +1,9 @@
-﻿namespace PointOfSaleTerminal.Interfaces
+﻿namespace PointOfSaleTerminalApi.Interfaces
 {
     public interface IVolumePrice
     {
+        string ProductCode { get; set; }
+
         double? PriceDiscount { get; set; }
 
         double PricePerUnit { get; set; }

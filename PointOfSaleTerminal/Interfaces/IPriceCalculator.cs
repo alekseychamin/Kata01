@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace PointOfSaleTerminalApi.Interfaces
 {
-    public interface ILog
+    public interface IPriceCalculator
     {
-        void LogMessage(string message);
+        double CalculateTotal(List<string> scaneCodes, Dictionary<string, IVolumePrice> prices);
     }
 }

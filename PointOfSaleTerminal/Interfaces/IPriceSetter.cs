@@ -1,5 +1,4 @@
-﻿using PointOfSaleTerminalApi.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace PointOfSaleTerminalApi.Interfaces
 {
-    public interface IPointOfSaleTerminal
+    public interface IPriceSetter
     {
-        string ScanedCodes { get; }
-
-        void Scan(string productCode);
+        Dictionary<string, IVolumePrice> Prices { get; }
 
         void SetPricing(List<IVolumePrice> prices);
-
-        double CalculateTotal();
     }
 }
